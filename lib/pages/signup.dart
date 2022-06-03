@@ -74,14 +74,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: signIn, 
+                  onPressed: signUp, 
                   child: const Text('Sign Up')),
 
             ]) ,)
       ]),
     );
   }
-  Future<void> signIn() async{
+  Future<void> signUp() async{
     final formState = _formKey.currentState;
     if(formState!.validate()){
       formState.save();
