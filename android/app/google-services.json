@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1095775905140",
+    "project_id": "live-location-tracking-a-cfa13",
+    "storage_bucket": "live-location-tracking-a-cfa13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095775905140:android:a991f5969906d7c083b821",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095775905140-bknsqer502mkl1ea1n2akokrbt0vph8q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.application",
+            "certificate_hash": "0d64ec229a9a8c2557f83669e023bdd15e6491dc"
+          }
+        },
+        {
+          "client_id": "1095775905140-psasmgnkpqgkesgmdlr102rtc3guuojh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkhgFXFczsB2_grzCM4vsQ0I6RFziOF6c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1095775905140-psasmgnkpqgkesgmdlr102rtc3guuojh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
