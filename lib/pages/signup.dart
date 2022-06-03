@@ -32,9 +32,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     if(input!.isEmpty){
                       return 'Please enter your name';
                     }
-                    else{
-                      return '';
-                    }
                   },
                   onSaved: (input) => _name = input!,
                   decoration: const InputDecoration(
@@ -46,9 +43,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     if(input!.isEmpty){
                       return 'Please enter an Email';
                     }
-                    else{
-                      return '';
-                    }
                   },
                   onSaved: (input) => _email = input!,
                   decoration: const InputDecoration(
@@ -59,9 +53,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   validator: (input){
                     if(input!.length < 8){
                       return 'Please enter minimum 8 characters';
-                    }
-                    else{
-                      return '';
                     }
                   },
                   onSaved: (input) => _password = input!,

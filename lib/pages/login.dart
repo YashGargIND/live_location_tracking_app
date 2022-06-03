@@ -32,9 +32,6 @@ class _LoginPageState extends State<LoginPage> {
                     if(input!.isEmpty){
                       return 'Please enter an Email';
                     }
-                    else{
-                      return '';
-                    }
                   },
                   onSaved: (input) => _email = input!,
                   decoration: const InputDecoration(
@@ -45,9 +42,6 @@ class _LoginPageState extends State<LoginPage> {
                   validator: (input){
                     if(input!.length < 8){
                       return 'Please enter minimum 8 characters';
-                    }
-                    else{
-                      return '';
                     }
                   },
                   onSaved: (input) => _password = input!,
