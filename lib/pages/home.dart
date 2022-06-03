@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'login.dart';
+import 'signup.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -30,11 +32,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
   void navigateToLoginPage(){
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage(), fullscreenDialog: true)
-        // );
+          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage(), fullscreenDialog: true)
+        );
   }
   void navigateToSignUpPage(){
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage(), fullscreenDialog: true)
-        // );
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage(), fullscreenDialog: true)
+        );
   }
 }

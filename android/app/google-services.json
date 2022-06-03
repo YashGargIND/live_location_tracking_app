@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1095775905140:android:a991f5969906d7c083b821",
+        "mobilesdk_app_id": "1:1095775905140:android:010b8314afd1e23283b821",
         "android_client_info": {
-          "package_name": "com.android.application"
+          "package_name": "com.example.live_location_tracking_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1095775905140-bknsqer502mkl1ea1n2akokrbt0vph8q.apps.googleusercontent.com",
+          "client_id": "1095775905140-dvqu261sn590gj38a10jj68ftaoqa1jc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.android.application",
+            "package_name": "com.example.live_location_tracking_app",
             "certificate_hash": "0d64ec229a9a8c2557f83669e023bdd15e6491dc"
           }
         },
