@@ -15,7 +15,7 @@ class _ProfileState extends State<Profile> {
   final _auth = FirebaseAuth.instance;
   final userCollection = FirebaseFirestore.instance.collection("users");
   late String _name, _email, _dp;
-  getcurrentuser() {
+  getCurrentUser() {
     try {
       final user = _auth.currentUser;
       if (user != null) {
@@ -26,14 +26,13 @@ class _ProfileState extends State<Profile> {
     }
   }
 
-  void initstate() {
+  void initState() {
     super.initState();
-    getcurrentuser();
+    getCurrentUser();
   }
 
   Future<void> userData() async {
     final uid = loggedInUser.uid;
-    print(uid);
     DocumentSnapshot ds = await userCollection.doc(uid).get();
     _dp = ds.get("dp");
     _name = ds.get('name');
