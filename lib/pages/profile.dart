@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'editProfile.dart';
+
 late User loggedInUser;
 
 class Profile extends StatefulWidget {
@@ -26,14 +28,13 @@ class _ProfileState extends State<Profile> {
     }
   }
 
-  void initstate() {
+  void initState() {
     super.initState();
     getcurrentuser();
   }
 
   Future<void> userData() async {
     final uid = loggedInUser.uid;
-    print(uid);
     DocumentSnapshot ds = await userCollection.doc(uid).get();
     _dp = ds.get("dp");
     _name = ds.get('name');
@@ -57,7 +58,12 @@ class _ProfileState extends State<Profile> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Text("Name = $_name"),
-                Text("Email = $_email")
+                Text("Email = $_email"),
+                ElevatedButton(onPressed:(){
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => EditProfile()));
+                },
+                 child: Text('Edit Profile'),)
               ],
             );
           }),
