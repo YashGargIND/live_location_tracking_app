@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:live_location_tracking_app/pages/profile.dart';
 
 import 'home.dart';
+import 'profile.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key, required this.user}) : super(key: key);
@@ -15,30 +17,31 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      title : Text('Welcome ${widget.user.user!.email}'),
+        title: Text('Welcome ${widget.user.user!.email}'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Expanded(child: Container()),
+          ElevatedButton(onPressed: () {}, child: const Text('My Groups')),
           ElevatedButton(
-            onPressed: () {}, 
-            child: const Text('My Groups')),
-          ElevatedButton(
-            onPressed: () {}, 
-            child: const Text('Profile')),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Profile()));
+              },
+              child: const Text('Profile')),
           ElevatedButton(
             child: const Text("SignOut"),
-            onPressed: ()  {
+            onPressed: () {
               FirebaseAuth.instance.signOut();
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
-            },),
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
+            },
+          ),
           Expanded(child: Container()),
-      ],
-      ), 
-      
-      
+        ],
+      ),
     );
   }
 }
