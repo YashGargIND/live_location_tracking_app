@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:live_location_tracking_app/pages/groups.dart';
 import 'package:live_location_tracking_app/pages/profile.dart';
 
 import 'home.dart';
@@ -24,7 +25,12 @@ class _WelcomePageState extends State<WelcomePage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Expanded(child: Container()),
-          ElevatedButton(onPressed: () {}, child: const Text('My Groups')),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Groups()));
+              },
+              child: const Text('My Groups')),
           ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
