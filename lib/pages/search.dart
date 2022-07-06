@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:live_location_tracking_app/pages/groups.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -15,6 +16,8 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
   final String? _uid = FirebaseAuth.instance.currentUser?.uid;
+  late String _username;
+  String _groupname = ' ';
   final List<String> _usernames = <String>[];
   final List<String> _selectedusernames = <String>[];
   final Map<String, bool> _selectedusernamesbool = <String, bool>{};
@@ -47,15 +50,18 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
                     child: Wrap(
                         spacing: 6.0,
                         runSpacing: 6.0,
-                        children: _usernames
+                        children: _selectedusernames
                             .map((e) => _builtchip(e, Colors.pink))
                             .toList()
                             .cast<Widget>()))),
             Divider(thickness: 1.0),
-            SizedBox(height: 100.0,
-              child: ListView.builder(
+           ListView.builder(
                   itemCount: _usernames.length,
+                  shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
+                    // print("username length is ${_usernames.length}");
+                    // print("index is $index");
+                    print("username at index $index is ${_usernames[index]}");
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
@@ -89,16 +95,77 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
                       ),
                     );
                   }),
-            )
+            
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: (){},
+          onPressed: (){
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    scrollable: true,
+                    title: Text('Name of this Group'),
+                    content: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Form(
+                        child: Column(
+                          children: <Widget>[
+                            TextFormField(
+                              onChanged : (input) => _groupname = input,
+                              decoration: InputDecoration(
+                                labelText: 'Group Name',
+                                icon: Icon(Icons.account_box),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                     actions: [
+                      ElevatedButton(
+                          child: Text("Submit"),
+                          onPressed: createCollectionGroup
+                          )
+                    ],
+                  );
+                });
+          
+          },
           child: Icon(Icons.check),),
         
         );
   }
-
+  Future<void> createCollectionGroup() async{
+              
+              await FirebaseFirestore.instance.collection('users').where('uid', isEqualTo : _uid).get().then((snapshot) {
+                setState((){
+                  _username = snapshot.docs.first['name'];
+                });
+              });
+              print('group name is $_groupname');
+              _selectedusernames.insert(_selectedusernames.length, _username);
+              Map<String, dynamic> map_groups = {
+                'Group Name' : _groupname,
+                'users' : _selectedusernames,
+              };
+              try{
+                await FirebaseFirestore.instance.collection('groups').add(map_groups);
+                ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text("Group Created"),));
+                setState(() {
+                  _selectedusernames.clear();
+                  _selectedusernamesbool.clear();
+                });
+                Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => Groups()));
+              }
+              catch(err){
+                ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(err.toString()),));
+              }
+            }
+  
   List<Widget>? _buildActions() {
     if (_isSearching) {
       return <Widget>[
@@ -155,9 +222,9 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
         .get()
         .then((snapshot) {
           setState(() {
-            print(snapshot.docs.length);
+            // print(snapshot.docs.length);
             snapshot.docs.forEach((element) {
-        print(element['name'] + "in snapshot");
+        // print(element['name'] + "in snapshot");
         if (element['uid'] != _uid) {
           if (!_usernames.contains(element['name'])) {
             _usernames.insert(i, element['name']);
