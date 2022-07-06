@@ -80,7 +80,9 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WelcomePage(user : user)));
       }
       catch(err){
-        print(err);
+        // print(err);
+        ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(err.toString()),));
       }
     }
   }

@@ -52,13 +52,51 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
                             .toList()
                             .cast<Widget>()))),
             Divider(thickness: 1.0),
-            // ListView.builder(
-            //     itemCount: _usernames.length,
-            //     itemBuilder: (BuildContext context, int index) {
-            //       return ListTile(title: Text(_usernames[index]));
-            //     })
+            SizedBox(height: 100.0,
+              child: ListView.builder(
+                  itemCount: _usernames.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListTile(
+                        selectedTileColor: Colors.grey[300],
+                     hoverColor: Colors.grey[300],
+                     leading: Icon(Icons.person),
+                        tileColor: Colors.white,
+                        trailing: GestureDetector(onTap: (){
+                          setState(() {
+                        if(!_selectedusernames.contains(_usernames[index])){
+                        _selectedusernames.insert(_selectedusernames.length,_usernames[index]);
+                        }
+                        else{
+                          _deleteselected(_usernames[index]);
+                        }
+                        });
+                        },
+                        child: (!_selectedusernames.contains(_usernames[index])) ? Icon(Icons.check,) : Icon(Icons.clear,)),
+                        title:Text("${_usernames[index]}"),
+                      onTap: (){setState(() {
+                        if(!_selectedusernames.contains(_usernames[index])){
+                        _selectedusernames.insert(_selectedusernames.length,_usernames[index]);
+                        }
+                        else{
+                          ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text('${_usernames[index]} is already selected '),));
+                        }
+
+                      });
+                      }
+                      ),
+                    );
+                  }),
+            )
           ],
-        ));
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){},
+          child: Icon(Icons.check),),
+        
+        );
   }
 
   List<Widget>? _buildActions() {
@@ -107,14 +145,19 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
     setState(() {
       searchQuery = newQuery;
     });
+    // print(searchQuery);
     int i = 0;
     _usernames.clear();
     FirebaseFirestore.instance
         .collection('users')
-        .where('name', isEqualTo: newQuery)
+        .where('name', isGreaterThanOrEqualTo : newQuery)
+        .where('name', isLessThanOrEqualTo :  newQuery+ '\uf8ff')
         .get()
         .then((snapshot) {
-      snapshot.docs.forEach((element) {
+          setState(() {
+            print(snapshot.docs.length);
+            snapshot.docs.forEach((element) {
+        print(element['name'] + "in snapshot");
         if (element['uid'] != _uid) {
           if (!_usernames.contains(element['name'])) {
             _usernames.insert(i, element['name']);
@@ -128,11 +171,13 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
           }
         }
         i++;
-      });
-    });
+      }
+           );   });}
+      );
+  }
 
     // print('Search Query is ' + searchQuery);
-  }
+  // }
 
   Widget _buildTitle(BuildContext context) {
     return new InkWell(
@@ -167,7 +212,7 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
       _isSearching = false;
     });
   }
-}
+
 
 Widget _builtchip(String Label, Color color) {
   return Chip(
@@ -190,6 +235,13 @@ Widget _builtchip(String Label, Color color) {
     elevation: 6.0,
     padding: EdgeInsets.all(8.0),
   );
+  
 }
-
-_deleteselected(String label) {}
+void _deleteselected(String label) {
+  setState(
+          () {
+        _selectedusernames.removeAt(_selectedusernames.indexOf(label));
+      },
+    );
+}
+}

@@ -89,6 +89,17 @@ class _SignUpPageState extends State<SignUpPage> {
         CollectionReference users =
             FirebaseFirestore.instance.collection('users');
         String uid = user.user!.uid.toString();
+        bool isUnique = true;
+        // users.where('name', isEqualTo: _name).get().then((snapshot) 
+        // { setState(() {
+        //   print(snapshot.docs.length);
+        //   if(snapshot.docs.isNotEmpty){
+        //     isUnique = false;
+        //   }});
+        // });
+        // if(isUnique == false){
+        //   throw Exception('username is Not Unique');
+        // }
         final userData = {
           "name": _name,
           "email": _email,
@@ -100,7 +111,8 @@ class _SignUpPageState extends State<SignUpPage> {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => WelcomePage(user: user)));
       } catch (err) {
-        print(err);
+        ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(err.toString()),));
       }
     }
   }
