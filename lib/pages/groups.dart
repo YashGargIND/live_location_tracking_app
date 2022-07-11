@@ -7,10 +7,11 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:live_location_tracking_app/pages/map.dart';
 import 'package:live_location_tracking_app/pages/search.dart';
+import 'package:location/location.dart';
 
 class Groups extends StatefulWidget {
-  const Groups({Key? key}) : super(key: key);
-   
+Groups({Key? key, required this.locdata}) : super(key: key);
+  LocationData locdata;
   @override
   State<Groups> createState() => _GroupsState();
 }
@@ -75,12 +76,12 @@ class _GroupsState extends State<Groups> {
                     //   ) ,),
                     Card(
                         child: InkWell(
-                          onTap: () {
-                            Navigator.pushReplacement(
-                              context, MaterialPageRoute(builder: (context) => MapPage(grp : grp)));
-                          },
+                          
                           child: ListTile(
-                            
+                            onTap: () {
+                            Navigator.pushReplacement(
+                              context, MaterialPageRoute(builder: (context) => MapPage(grpid : grp.id, uid : _uid, locdata : widget.locdata)));
+                          },
                               title: Padding(
                                padding: EdgeInsets.symmetric(horizontal: 8.0,vertical: 4.0),
                                 child: Text(
@@ -112,7 +113,7 @@ class _GroupsState extends State<Groups> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Search()));
+              context, MaterialPageRoute(builder: (context) => Search(locdata : widget.locdata)));
         },
         child: Icon(
           Icons.add,
