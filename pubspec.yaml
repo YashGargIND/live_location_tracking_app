@@ -40,7 +40,7 @@ dependencies:
   location: ^4.4.0
   geoflutterfire: ^3.0.2
   google_maps_flutter: ^2.1.8
-
+  geolocator: ^9.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
