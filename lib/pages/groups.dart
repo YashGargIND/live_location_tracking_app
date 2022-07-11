@@ -1,8 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:live_location_tracking_app/pages/map.dart';
 import 'package:live_location_tracking_app/pages/search.dart';
 
 class Groups extends StatefulWidget {
@@ -71,33 +74,36 @@ class _GroupsState extends State<Groups> {
                     //     height: 3.0,
                     //   ) ,),
                     Card(
-                        child: ListTile(
-                          
-                            title: Padding(
-                             padding: EdgeInsets.symmetric(horizontal: 8.0,vertical: 4.0),
-                              child: Text(
-                                grp['Group Name'],
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                
-                              ),
-                              
-                            ),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context, MaterialPageRoute(builder: (context) => MapPage()));
+                          },
+                          child: ListTile(
                             
-                            subtitle: Padding(
-                             padding: EdgeInsets.symmetric(horizontal: 8.0,vertical: 4.0),
-                              child: Text(
-                                grp['users'].toString().substring(1, grp['users'].toString().length-1),
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold,
+                              title: Padding(
+                               padding: EdgeInsets.symmetric(horizontal: 8.0,vertical: 4.0),
+                                child: Text(
+                                  grp['Group Name'],
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                
                               ),
-                              
-                            ))),
+                              subtitle: Padding(
+                               padding: EdgeInsets.symmetric(horizontal: 8.0,vertical: 4.0),
+                                child: Text(
+                                  grp['users'].toString().substring(1, grp['users'].toString().length-1),
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                            ),
+                        ),
+                        ),
                   ],
                 ),
               )));
