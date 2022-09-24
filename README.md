@@ -1,16 +1,16 @@
 # live_location_tracking_app
 
-A new Flutter project.
+We Developed an Android app using Flutter which enables users to view the live location of their friends on the map.
+We Implemented the UI, user authentication, realtime location Database, Maps integration using Flutter, Cloud Firestore,
+Firebase-Auth, Google Maps API.
 
-## Getting Started
+This project was done under the Coding Club IITG in a Team of two consisting of Yash Garg and Bhoomika Dhaka.
 
-This project is a starting point for a Flutter application.
+To run the debug built of the project one must have an android virtual device installed and also need the latest version of flutter, to run the project use the following command.
 
-A few resources to get you started if this is your first Flutter project:
+$ flutter run lib/main.dart
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Sign up using your email and use the app.
+Thank You.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
